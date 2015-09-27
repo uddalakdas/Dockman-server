@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+var debug = require('debug')('Dockman-server');
+var app = require('../app');
+app.set('port', process.env.npm_package_config_port || 8000);
+var server = app.listen(app.get('port'), function() {
+	console.log('Server listening on port ' + server.address().port);
+});
