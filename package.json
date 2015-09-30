@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "MongoDB server for Dockman app",
   "scripts": {
-    "prestart" : "npm install",
+    "prestart": "npm install",
     "start": "node ./src/bin/www",
     "test": "mocha test"
   },
@@ -13,6 +13,7 @@
     "debug": "~2.2.0",
     "express": "~4.13.0",
     "fbgraphapi": "^0.5.0",
+    "jwt-simple": "^0.3.1",
     "mongoose": "~3.8.1",
     "morgan": "~1.6.0"
   },
@@ -32,7 +33,7 @@
     "url": "https://github.com/uddalakdas/Dockman-server/issues"
   },
   "homepage": "https://github.com/uddalakdas/Dockman-server.git",
-  "config" : {
-    "port" : "8001"
+  "config": {
+    "port": "8001"
   }
 }

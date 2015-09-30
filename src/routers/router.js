@@ -1,5 +1,5 @@
 module.exports = function (app) {
-	app.use('/fb/authenticate', require('./fb-user'))
+	app.use('/authenticate', require('./token-issuer'))
 
 	// authenticator middleware
 
