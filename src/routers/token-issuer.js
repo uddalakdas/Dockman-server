@@ -58,20 +58,28 @@ var handleGoogleAuthentication = function(token,callback){
 var handleLocalAuthentication = function(req,res,externalUser,token){
      
      User.findOne({email:externalUser.email},function(err,userDetails){
-        console.log("Step2");
         if(err){
             console.log(err);
             res.status(500).send('{"error":{"message":"Internal Server error","code":500}}');
         }
+        //If User Already exists
         else if(userDetails){
-            console.log("Step4");
             //console.log(user)
-            var user = {};
-            user.email = userDetails.email;
-            user.name = userDetails.name;
-            user.token = jwt.encode(token,secret.jwtTokenSecret);
-            res.send(user);  
+            userDetails.token = jwt.encode(token,secret.jwtTokenSecret);
+            userDetails.save(function(err){
+                if(err){
+                    //console.log("Step5");
+                    console.log(err);
+                    res.status(500).send('{"error":{"message":"Internal Server error","code":500}}');
+                }
+                else{
+                    //console.log("Step6");
+                    res.send(userDetails);
+                }
+
+            });
         }
+        //New User
         else{
            
             var newUser = new User();
@@ -82,12 +90,12 @@ var handleLocalAuthentication = function(req,res,externalUser,token){
             
             newUser.save(function(err){
                 if(err){
-                    console.log("Step5");
+                    //console.log("Step5");
                     console.log(err);
                     res.status(500).send('{"error":{"message":"Internal Server error","code":500}}');
                 }
                 else{
-                    console.log("Step6");
+                    //console.log("Step6");
                     res.send(newUser);
                 }
                 
